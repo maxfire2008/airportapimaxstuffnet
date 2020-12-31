@@ -24,23 +24,34 @@ class HobartAirport:
                            "VA":"Virgin Australia",
                            "SH":"Sharp Airlines",
                            "JQ":"Jetstar Airways",
-                           "FC":"Link Airways"}
+                           "FC":"Link Airways",
+                           "NZ":"Air New Zealand",
+                           "CX":"Cathay Pacific",
+                           "DL":"Delta Air Lines"}
         aircraft_mapping = {"SWM":"Fairchild Swearingen Metroliner",
                             "717":"Boeing 717",
                             "321":"Airbus A321",
                             "320":"Airbus A320",
-                            "73H":"Boeing 737-800"}
+                            "73H":"Boeing 737-800",
+                            "SF3":"SAAB340B"}
+        self._error_flights = []
         for arr in arrivals:
             if arr["airline"] in airline_mapping:
                 airline_full_name = airline_mapping[arr["airline"]]
             else:
                 airline_full_name = arr["airline"]
                 print("Airline not recognised:",arr["airline"],arr["flight_number"])
+                self._error_flights.append(arr)
             if arr["aircraft_type"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
             else:
                 aircraft_full_name = arr["aircraft_type"]
-                print("Aircraft not recognised:",arr["airline"],arr["flight_number"])
+                print("Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                self._error_flights.append(arr)
+            if "codeshare_flights" in arr:
+                codeshare_flights = arr["codeshare_flights"]
+            else:
+                codeshare_flights = []
             self._flights.append(Flight(arr["scheduled_time_timestamp"],
                                  arr["estimated_time_timestamp"],
                                  "a",
@@ -48,6 +59,7 @@ class HobartAirport:
                                  airline_full_name,
                                  arr["source"],
                                  arr["flight_number"],
+                                 codeshare_flights,
                                  arr["primary_remark"] == "Delayed"
                                  ))
         for arr in departures:
@@ -56,11 +68,17 @@ class HobartAirport:
             else:
                 airline_full_name = arr["airline"]
                 print("Airline not recognised:",arr["airline"],arr["flight_number"])
+                self._error_flights.append(arr)
             if arr["aircraft_type"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
             else:
                 aircraft_full_name = arr["aircraft_type"]
                 print("Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                self._error_flights.append(arr)
+            if "codeshare_flights" in arr:
+                codeshare_flights = arr["codeshare_flights"]
+            else:
+                codeshare_flights = []
             self._flights.append(Flight(arr["scheduled_time_timestamp"],
                                  arr["estimated_time_timestamp"],
                                  "d",
@@ -68,6 +86,7 @@ class HobartAirport:
                                  airline_full_name,
                                  arr["source"],
                                  arr["flight_number"],
+                                 codeshare_flights,
                                  arr["primary_remark"] == "Delayed"
                                  ))
 

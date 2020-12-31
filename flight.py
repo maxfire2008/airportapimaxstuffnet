@@ -1,7 +1,7 @@
 import json
 class Flight:
-    def __init__(self,time=None,est_time=None,arrival_departure=None,aircraft=None,airline=None,location=None,flight_number=None,cancelled=None,r=None):
-        if time != None and est_time != None and arrival_departure != None and aircraft != None and airline != None and location != None and flight_number != None and cancelled != None:
+    def __init__(self,time=None,est_time=None,arrival_departure=None,aircraft=None,airline=None,location=None,flight_number=None,code_shares=None,cancelled=None,r=None):
+        if time != None and est_time != None and arrival_departure != None and aircraft != None and airline != None and location != None and flight_number != None and code_shares != None and cancelled != None:
             self._time=time
             self._est_time=est_time
             self._arrival_departure=arrival_departure
@@ -11,6 +11,7 @@ class Flight:
 ##            self._terminal=terminal
 ##            self._gate=gate
             self._flight_number=flight_number
+            self._code_shares=code_shares
             self._cancelled=cancelled
         elif r != None:
             rd = json.loads(r)
@@ -23,6 +24,7 @@ class Flight:
 ##            self._terminal=rd["terminal"]
 ##            self._gate=rd["gate"]
             self._flight_number=rd["flight_number"]
+            self._code_shares=rd["code_shares"]
             self._cancelled=rd["cancelled"]
         else:
             raise TypeError
@@ -54,6 +56,9 @@ class Flight:
     def flight_number(self):
         return self._flight_number
     @property
+    def code_shares(self):
+        return self._code_shares
+    @property
     def cancelled(self):
         return self._cancelled
 ##    def __str__(self):
@@ -68,9 +73,10 @@ class Flight:
 ##"terminal":self._terminal,
 ##"gate":self._gate,
 "flight_number":self._flight_number,
+"code_shares":self._code_shares,
 "cancelled":self._cancelled})
     def __repr__(self):
         return "Flight("+repr(self._time)+","+repr(self._est_time)+","+repr(self._arrival_departure)+","+repr(self._aircraft)+","+repr(self._airline)+","+repr(self._location)+repr(self._flight_number)+","+repr(self._cancelled)+")"
 
 if __name__ == "__main__":
-    testflight = Flight(1609380707,1609384307,"a","738","Qantas","Perth","QF2842",False)
+    testflight = Flight(1609380707,1609384307,"a","738","Qantas","Perth","QF2842",["JQ28","BA2842"],False)
