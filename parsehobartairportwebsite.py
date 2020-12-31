@@ -4,6 +4,7 @@ import requests
 import time
 import json
 from pprint import pprint
+from flight import Flight
 class HobartAirport:
     def __init__(self):
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -17,7 +18,9 @@ class HobartAirport:
         arrivals = json.loads(str(soup.findAll("script")[7]).split("\n")[3][32:-1])
         self._arrivals=arrivals
         departures = json.loads(str(soup.findAll("script")[7]).split("\n")[4][32:-1])
-        self._departures=departures                   
+        self._departures=departures
+        self._flights = []
+        for x in 
 
 if __name__ == "__main__":
     hba = HobartAirport()

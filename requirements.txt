@@ -1,0 +1,4 @@
+gunicorn
+waitress
+flask
+fernet
