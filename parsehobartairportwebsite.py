@@ -20,7 +20,56 @@ class HobartAirport:
         departures = json.loads(str(soup.findAll("script")[7]).split("\n")[4][32:-1])
         self._departures=departures
         self._flights = []
-        for x in 
+        airline_mapping = {"QF":"Qantas",
+                           "VA":"Virgin Australia",
+                           "SH":"Sharp Airlines",
+                           "JQ":"Jetstar Airways",
+                           "FC":"Link Airways"}
+        aircraft_mapping = {"SWM":"Fairchild Swearingen Metroliner",
+                            "717":"Boeing 717",
+                            "321":"Airbus A321",
+                            "320":"Airbus A320",
+                            "73H":"Boeing 737-800"}
+        for arr in arrivals:
+            if arr["airline"] in airline_mapping:
+                airline_full_name = airline_mapping[arr["airline"]]
+            else:
+                airline_full_name = arr["airline"]
+                print("Airline not recognised:",arr["airline"],arr["flight_number"])
+            if arr["aircraft_type"] in aircraft_mapping:
+                aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+            else:
+                aircraft_full_name = arr["aircraft_type"]
+                print("Aircraft not recognised:",arr["airline"],arr["flight_number"])
+            self._flights.append(Flight(arr["scheduled_time_timestamp"],
+                                 arr["estimated_time_timestamp"],
+                                 "a",
+                                 aircraft_full_name,
+                                 airline_full_name,
+                                 arr["source"],
+                                 arr["flight_number"],
+                                 arr["primary_remark"] == "Delayed"
+                                 ))
+        for arr in departures:
+            if arr["airline"] in airline_mapping:
+                airline_full_name = airline_mapping[arr["airline"]]
+            else:
+                airline_full_name = arr["airline"]
+                print("Airline not recognised:",arr["airline"],arr["flight_number"])
+            if arr["aircraft_type"] in aircraft_mapping:
+                aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+            else:
+                aircraft_full_name = arr["aircraft_type"]
+                print("Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+            self._flights.append(Flight(arr["scheduled_time_timestamp"],
+                                 arr["estimated_time_timestamp"],
+                                 "d",
+                                 aircraft_full_name,
+                                 airline_full_name,
+                                 arr["source"],
+                                 arr["flight_number"],
+                                 arr["primary_remark"] == "Delayed"
+                                 ))
 
 if __name__ == "__main__":
     hba = HobartAirport()
