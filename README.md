@@ -32,6 +32,6 @@ RESPONSE
 This is currently running on Heroku with a python buildpack.
 
 List of third party api endpoints:
-* [http://airportapi.maxstuff.net](http://airportapi.maxstuff.net)
+* [http://airportapi.maxstuff.net](http://airportapi.maxstuff.net) <img src="http://airportapi.maxstuff.net/status.jpeg" height="15">
 
 **If you decide to host this project please add a PR to this page!**
