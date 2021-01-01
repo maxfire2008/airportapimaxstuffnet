@@ -8,6 +8,7 @@ from hobartairport_com_au import HobartAirport as YMHB
 
 app = flask.Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 airports = {
         "YMHB":[YMHB(),"Hobart International Airport"],
@@ -28,7 +29,7 @@ def index():
             airport_list.append([airport,airports[airport][1]])
         return json.dumps(airport_list)
 
-##if __name__ == "__main__":
-##     app.debug = False
-##     port = int(os.environ.get('PORT', 5000))
-##     waitress.serve(app, port=port)
+if __name__ == "__main__":
+     app.debug = False
+     port = int(os.environ.get('PORT', 5000))
+     waitress.serve(app, port=port)
