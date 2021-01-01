@@ -6,17 +6,21 @@ from flask import request
 from hobartairport_com_au import HobartAirport as YMHB
 app = flask.Flask(__name__)
 
+airports = {
+        "YMHB":YMHB(),
+    }
+
 @app.route('/')
 def index():
     airport_requested = request.args.get("airport")
-    if airport_requested == "YMHB":
-        airport = YMHB()
+    if airport_requested in airports:
+        airport = airports[airport_requested]
         flights = []
         for flight in airport.flights():
             flights.append(flight.todict())
         return json.dumps(flights, indent=4)
     else:
-        return "[]"
+        return json.dumps(list(airports))
 
 if __name__ == "__main__":
      app.debug = False
