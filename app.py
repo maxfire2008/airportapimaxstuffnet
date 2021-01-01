@@ -29,6 +29,13 @@ def index():
             airport_list.append([airport,airports[airport][1]])
         return json.dumps(airport_list)
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
+
+
 if __name__ == "__main__":
      app.debug = False
      port = int(os.environ.get('PORT', 5000))
