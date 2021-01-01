@@ -4,6 +4,8 @@ import waitress
 import json
 from flask import request
 from flask_cors import CORS
+from flask import send_file, send_from_directory, safe_join, abort
+
 from hobartairport_com_au import HobartAirport as YMHB
 
 app = flask.Flask(__name__)
@@ -27,6 +29,11 @@ def index():
         for airport in airports:
             airport_list.append([airport,airports[airport][1]])
         return json.dumps(airport_list)
+
+@app.route("/status.jpeg")
+def status():
+    return send_file("status.jpeg")
+
 
 if __name__ == "__main__":
      app.debug = False
