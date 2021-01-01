@@ -60,7 +60,8 @@ class HobartAirport:
                                  arr["source"],
                                  arr["flight_number"],
                                  codeshare_flights,
-                                 arr["primary_remark"] == "Delayed"
+                                 arr["primary_remark"] == "Delayed",
+                                 "Hobart"
                                  ))
         for arr in departures:
             if arr["airline"] in airline_mapping:
@@ -87,7 +88,8 @@ class HobartAirport:
                                  arr["source"],
                                  arr["flight_number"],
                                  codeshare_flights,
-                                 arr["primary_remark"] == "Delayed"
+                                 arr["primary_remark"] == "Delayed",
+                                 "Hobart"
                                  ))
     def flights(self):
         return self._flights
