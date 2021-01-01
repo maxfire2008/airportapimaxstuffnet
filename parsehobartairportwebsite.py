@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
-import bs4
+##import bs4
 import requests
-import time
+##import time
 import json
-from pprint import pprint
+##from pprint import pprint
 from flight import Flight
 class HobartAirport:
     def __init__(self):
@@ -89,6 +89,8 @@ class HobartAirport:
                                  codeshare_flights,
                                  arr["primary_remark"] == "Delayed"
                                  ))
+    def flights(self):
+        return self._flights
 
 if __name__ == "__main__":
     hba = HobartAirport()
