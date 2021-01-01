@@ -1,5 +1,5 @@
 # airportapimaxstuffnet
-The URL of the website is [airportapi.maxstuff.net](https://airportapi.maxstuff.net)
+The URL of the website is [http://airportapi.maxstuff.net](http://airportapi.maxstuff.net)
 
 Each endpoint returns a JSON payload.
 
@@ -32,4 +32,6 @@ RESPONSE
 This is currently running on Heroku with a python buildpack.
 
 List of third party api endpoints:
-* airportapi.maxstuff.net
+* [http://airportapi.maxstuff.net](http://airportapi.maxstuff.net)
+
+**If you decide to host this project please add a PR to this page!**
