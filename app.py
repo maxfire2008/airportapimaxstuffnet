@@ -10,20 +10,23 @@ app = flask.Flask(__name__)
 CORS(app)
 
 airports = {
-        "YMHB":YMHB(),
+        "YMHB":[YMHB(),"Hobart International Airport"],
     }
 
 @app.route('/')
 def index():
     airport_requested = request.args.get("airport")
     if airport_requested in airports:
-        airport = airports[airport_requested]
+        airport = airports[airport_requested][0]
         flights = []
         for flight in airport.flights():
             flights.append(flight.todict())
         return json.dumps(flights, indent=4)
     else:
-        return json.dumps(list(airports))
+        airport_list = []
+        for airport in airports:
+            airport_list.append([airport,airports[airport][1]])
+        return json.dumps(airport_list)
 
 if __name__ == "__main__":
      app.debug = False
