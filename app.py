@@ -28,7 +28,7 @@ def index():
             airport_list.append([airport,airports[airport][1]])
         return json.dumps(airport_list)
 
-if __name__ == "__main__":
-     app.debug = False
-     port = int(os.environ.get('PORT', 5000))
-     waitress.serve(app, port=port)
+##if __name__ == "__main__":
+##     app.debug = False
+##     port = int(os.environ.get('PORT', 5000))
+##     waitress.serve(app, port=port)
