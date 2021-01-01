@@ -3,8 +3,11 @@ import os
 import waitress
 import json
 from flask import request
+from flask_cors import CORS
 from hobartairport_com_au import HobartAirport as YMHB
+
 app = flask.Flask(__name__)
+CORS(app)
 
 airports = {
         "YMHB":YMHB(),
