@@ -1,4 +1,3 @@
-ECHO is on.
 steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
