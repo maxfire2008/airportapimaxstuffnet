@@ -2,6 +2,7 @@ import flask
 import os
 import waitress
 import json
+import time
 from flask import request
 from flask_cors import CORS
 from hobartairport_com_au import HobartAirport as YMHB
@@ -10,19 +11,39 @@ app = flask.Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+CACHE_TIME = 600
+
 airports = {
-        "YMHB":[YMHB(),"Hobart International Airport"],
+#       ICAO    ICAO (class)    NAME          CACHE_TIME
+        "YMHB":[YMHB,"Hobart International Airport",CACHE_TIME],
     }
+
+cache = {}
+
+def retreive_flights(airport):
+    global cache
+    global airports
+    if airport in cache and cache[airport][1] >= time.time():
+        return cache[airport][0]
+    else:
+        print("getting cache")
+        airport_item = airports[airport]
+        airport_c = airport_item[0]()
+        flights = []
+        for flight in airport_c.flights():
+            flights.append(flight.todict())
+        cache[airport] = [
+            json.dumps(flights, indent=4),
+            time.time()+airport_item[2]
+        ]
+        return cache[airport][0]
+    
 
 @app.route('/')
 def index():
     airport_requested = request.args.get("airport")
     if airport_requested in airports:
-        airport = airports[airport_requested][0]
-        flights = []
-        for flight in airport.flights():
-            flights.append(flight.todict())
-        return json.dumps(flights, indent=4)
+        return retreive_flights(airport_requested)
     else:
         airport_list = []
         for airport in airports:
