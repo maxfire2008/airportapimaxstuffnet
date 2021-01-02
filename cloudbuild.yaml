@@ -1,0 +1,6 @@
+ECHO is on.
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args: ['-c', 'gcloud config set app/cloud_build_timeout 3200 && gcloud app deploy']
+timeout: '3200s'
