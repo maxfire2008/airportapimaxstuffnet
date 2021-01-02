@@ -33,8 +33,8 @@ RESPONSE
 
 This is currently running on Heroku with a python buildpack.
 
-List of third party api endpoints:
+List of api endpoints and third party:
 * [https://airportapimaxstuffnet.wl.r.appspot.com/](https://airportapimaxstuffnet.wl.r.appspot.com/)
-* [http://airportapi.maxstuff.net](http://airportapi.maxstuff.net)
+* [http://airportapi.maxstuff.net](http://airportapi.maxstuff.net) **NOTE USES HTTP**
 
 **If you decide to host this project please add a PR to this page!** 
