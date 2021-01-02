@@ -26,7 +26,7 @@ def index():
     else:
         airport_list = []
         for airport in airports:
-            airport_list.append([airport,airports[airport][1]])
+            airport_list.append([airport]+airports[airport][1:])
         return json.dumps(airport_list)
 
 @app.after_request
