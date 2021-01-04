@@ -9,7 +9,7 @@ To get avalible airports use the api endpoint.
 
 GET `/` PAYLOAD ` `
 
-REPSONSE `[["YMHB","Hobart International Airport"],["YMML","Tullamarine Airport"]]`
+REPSONSE `[[<str (ICAO)>,<str (NAME)>,<int (cache duration>,<list ([<int (lat)>,<int (lon)>])>],[<str (ICAO)>,<str (NAME)>,<int (cache duration>,<list ([<int (lat)>,<int (lon)>])>]]`
 
 To view an airports flights use the following endpoint.
 
