@@ -28,7 +28,7 @@ def retreive_flights(airport):
     if airport in cache and cache[airport][1] >= time.time():
         return cache[airport][0]
     else:
-        print("getting cache")
+        print("Fetching",airport,"into cache")
         airport_item = airports[airport]
         airport_c = airport_item[0]()
         flights = []
