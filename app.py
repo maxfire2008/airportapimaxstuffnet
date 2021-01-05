@@ -6,6 +6,7 @@ import time
 from flask import request
 from flask_cors import CORS
 from hobartairport_com_au import HobartAirport as YMHB
+from melbourneairport_com_au import MelbourneAirport as YMML
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -16,6 +17,7 @@ CACHE_TIME = 600
 airports = {
 #       ICAO    ICAO (class)    NAME          CACHE_TIME
         "YMHB":[YMHB,"Hobart International Airport",CACHE_TIME],
+        "YMML":[YMML,"Melbourne Airport",CACHE_TIME]
     }
 
 cache = {}
@@ -26,7 +28,7 @@ def retreive_flights(airport):
     if airport in cache and cache[airport][1] >= time.time():
         return cache[airport][0]
     else:
-        print("getting cache")
+        print("Fetching",airport,"into cache")
         airport_item = airports[airport]
         airport_c = airport_item[0]()
         flights = []
