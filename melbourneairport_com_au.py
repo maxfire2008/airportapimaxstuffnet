@@ -62,47 +62,9 @@ class MelbourneAirport:
                 "JQ":"Jetstar Airways",
                 "QF":"Qantas"
             }
-        aircraft_mapping = {
-                "SQ218":"Airbus A350-941",
-                "QR905":"Airbus A350-1041",
-                "EY461":"Boeing 787-9",
-                "EK409":"Boeing 777-31H(ER)",
-                "JQ570":"Airbus A320-232",
-                "QF1537":"Boeing 717-2BL",
-                "VA732":"Boeing 737-8FE",
-                "JQ793":"Airbus A320-232",
-                "GA716":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":"",
-                "":""
-            }
+        #This required an...... um.... unothordox approach
+##        aircraft_mapping = json.loads(open("melbourneairportaircraftmapping.json").read())
+        aircraft_mapping = {}
         self._error_flights = []
         for arr in arrivals:
             if arr["flightNumber"][0:2] in airline_mapping:
@@ -114,8 +76,8 @@ class MelbourneAirport:
             if arr["flightNumber"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["flightNumber"]]
             else:
-                aircraft_full_name = "other"
-                print("[YMML] Aircraft not recognised:",arr["flightNumber"],arr["flightNumber"])
+                aircraft_full_name = f"{airline_full_name} aircraft"
+##                print("[YMML] Aircraft not recognised:",arr["flightNumber"],arr["flightNumber"])
                 self._error_flights.append(arr)
             codeshare_flights = []
             for csf in arr["flightCodeshares"]:
@@ -151,8 +113,8 @@ class MelbourneAirport:
             if arr["flightNumber"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["flightNumber"]]
             else:
-                aircraft_full_name = "other"
-                print("[YMML] Aircraft not recognised:",arr["flightNumber"],arr["flightNumber"])
+                aircraft_full_name = f"{airline_full_name} aircraft"
+##                print("[YMML] Aircraft not recognised:",arr["flightNumber"],arr["flightNumber"])
                 self._error_flights.append(arr)
             codeshare_flights = []
             for csf in arr["flightCodeshares"]:
