@@ -40,57 +40,59 @@ class HobartAirport:
                 airline_full_name = airline_mapping[arr["airline"]]
             else:
                 airline_full_name = arr["airline"]
-                print("Airline not recognised:",arr["airline"],arr["flight_number"])
+                print("[YMHB] Airline not recognised:",arr["airline"],arr["flight_number"])
                 self._error_flights.append(arr)
             if arr["aircraft_type"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
             else:
                 aircraft_full_name = arr["aircraft_type"]
-                print("Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
                 self._error_flights.append(arr)
             if "codeshare_flights" in arr:
                 codeshare_flights = arr["codeshare_flights"]
             else:
                 codeshare_flights = []
-            self._flights.append(Flight(arr["scheduled_time_timestamp"],
-                                 arr["estimated_time_timestamp"],
-                                 "a",
-                                 aircraft_full_name,
-                                 airline_full_name,
-                                 arr["source"],
-                                 arr["flight_number"],
-                                 codeshare_flights,
-                                 arr["primary_remark"] == "Delayed",
-                                 "Hobart"
-                                 ))
+            if arr["aircraft_type"] != "143":
+                self._flights.append(Flight(arr["scheduled_time_timestamp"],
+                                     arr["estimated_time_timestamp"],
+                                     "a",
+                                     aircraft_full_name,
+                                     airline_full_name,
+                                     arr["source"],
+                                     arr["flight_number"],
+                                     codeshare_flights,
+                                     arr["primary_remark"] == "Cancelled",
+                                     "Hobart"
+                                     ))
         for arr in departures:
             if arr["airline"] in airline_mapping:
                 airline_full_name = airline_mapping[arr["airline"]]
             else:
                 airline_full_name = arr["airline"]
-                print("Airline not recognised:",arr["airline"],arr["flight_number"])
+                print("[YMHB] Airline not recognised:",arr["airline"],arr["flight_number"])
                 self._error_flights.append(arr)
             if arr["aircraft_type"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
             else:
                 aircraft_full_name = arr["aircraft_type"]
-                print("Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
                 self._error_flights.append(arr)
             if "codeshare_flights" in arr:
                 codeshare_flights = arr["codeshare_flights"]
             else:
                 codeshare_flights = []
-            self._flights.append(Flight(arr["scheduled_time_timestamp"],
-                                 arr["estimated_time_timestamp"],
-                                 "d",
-                                 aircraft_full_name,
-                                 airline_full_name,
-                                 arr["source"],
-                                 arr["flight_number"],
-                                 codeshare_flights,
-                                 arr["primary_remark"] == "Delayed",
-                                 "Hobart"
-                                 ))
+            if arr["aircraft_type"] != "143":
+                self._flights.append(Flight(arr["scheduled_time_timestamp"],
+                                     arr["estimated_time_timestamp"],
+                                     "d",
+                                     aircraft_full_name,
+                                     airline_full_name,
+                                     arr["source"],
+                                     arr["flight_number"],
+                                     codeshare_flights,
+                                     arr["primary_remark"] == "Cancelled",
+                                     "Hobart"
+                                     ))
     def flights(self):
         return self._flights
 
