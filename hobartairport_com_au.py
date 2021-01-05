@@ -33,7 +33,7 @@ class HobartAirport:
                             "321":"Airbus A321",
                             "320":"Airbus A320",
                             "73H":"Boeing 737-800",
-                            "SF3":"SAAB340B"}
+                            "SF3":"SAAB 340B"}
         self._error_flights = []
         for arr in arrivals:
             if arr["airline"] in airline_mapping:
