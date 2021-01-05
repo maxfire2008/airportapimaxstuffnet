@@ -58,7 +58,7 @@ class MelbourneAirport:
         aircraft_mapping = {}
         self._error_flights = []
         for arr in arrivals:
-            if arr["airline"] in airline_mapping:
+            if arr["flightNumber"][0:2] in airline_mapping:
                 airline_full_name = airline_mapping[arr["flightNumber"][0:2]]
             else:
                 airline_full_name = arr["flightNumber"][0:2]
@@ -73,46 +73,64 @@ class MelbourneAirport:
             codeshare_flights = []
             for csf in arr["flightCodeshares"]:
                 codeshare_flights.append(csf['flightCodeshareNumber'])
-            self._flights.append(Flight(arr["scheduled_time_timestamp"],
-                                 arr["estimated_time_timestamp"],
+            if timenow.month > 10 and datetime.datetime.strptime(arr["date"],"%d/%m").month >= 1:
+                actualschedtime = datetime.datetime.strptime(arr["scheduledTime"]+arr["date"]+str(timenow.year+1),"%H:%M%d/%m%Y")
+            else:
+                actualschedtime = datetime.datetime.strptime(arr["scheduledTime"]+arr["date"]+str(timenow.year),"%H:%M%d/%m%Y")
+            if arr["estimatedTime"] == "":
+                arr["estimatedTime"] = arr["scheduledTime"]
+            if timenow.month > 10 and datetime.datetime.strptime(arr["date"],"%d/%m").month >= 1:
+                actualesttime = datetime.datetime.strptime(arr["estimatedTime"]+arr["date"]+str(timenow.year+1),"%H:%M%d/%m%Y")
+            else:
+                actualesttime = datetime.datetime.strptime(arr["estimatedTime"]+arr["date"]+str(timenow.year),"%H:%M%d/%m%Y")
+            self._flights.append(Flight(int(actualschedtime.timestamp()),
+                                 int(actualesttime.timestamp()),
                                  "a",
                                  aircraft_full_name,
                                  airline_full_name,
-                                 arr["source"],
-                                 arr["flight_number"],
+                                 arr["airportNamesDisplay"],
+                                 arr["flightNumber"],
                                  codeshare_flights,
-                                 arr['statusName'] == "Delayed",
+                                 arr['statusName'] == 'CANCELLED',
                                  "Melbourne"
                                  ))
         for arr in departures:
-            if arr["airline"] in airline_mapping:
-                airline_full_name = airline_mapping[arr["airline"]]
+            if arr["flightNumber"][0:2] in airline_mapping:
+                airline_full_name = airline_mapping[arr["flightNumber"][0:2]]
             else:
-                airline_full_name = arr["airline"]
-                print("[YMML] Airline not recognised:",arr["airline"],arr["flight_number"])
+                airline_full_name = arr["flightNumber"][0:2]
+                print("[YMML] Airline not recognised:",arr["flightNumber"][0:2],arr["flightNumber"])
                 self._error_flights.append(arr)
-            if arr["aircraft_type"] in aircraft_mapping:
-                aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+            if arr["flightNumber"] in aircraft_mapping:
+                aircraft_full_name = aircraft_mapping[arr["flightNumber"]]
             else:
-                aircraft_full_name = arr["aircraft_type"]
-                print("[YMML] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                aircraft_full_name = "other"
+                print("[YMML] Aircraft not recognised:",arr["flightNumber"],arr["flightNumber"])
                 self._error_flights.append(arr)
-            if "codeshare_flights" in arr:
-                codeshare_flights = arr["codeshare_flights"]
+            codeshare_flights = []
+            for csf in arr["flightCodeshares"]:
+                codeshare_flights.append(csf['flightCodeshareNumber'])
+            if timenow.month > 10 and datetime.datetime.strptime(arr["date"],"%d/%m").month >= 1:
+                actualschedtime = datetime.datetime.strptime(arr["scheduledTime"]+arr["date"]+str(timenow.year+1),"%H:%M%d/%m%Y")
             else:
-                codeshare_flights = []
-            if arr["aircraft_type"] != "143":
-                self._flights.append(Flight(arr["scheduled_time_timestamp"],
-                                     arr["estimated_time_timestamp"],
-                                     "d",
-                                     aircraft_full_name,
-                                     airline_full_name,
-                                     arr["source"],
-                                     arr["flight_number"],
-                                     codeshare_flights,
-                                     arr["primary_remark"] == "Delayed",
-                                     "Hobart"
-                                     ))
+                actualschedtime = datetime.datetime.strptime(arr["scheduledTime"]+arr["date"]+str(timenow.year),"%H:%M%d/%m%Y")
+            if arr["estimatedTime"] == "":
+                arr["estimatedTime"] = arr["scheduledTime"]
+            if timenow.month > 10 and datetime.datetime.strptime(arr["date"],"%d/%m").month >= 1:
+                actualesttime = datetime.datetime.strptime(arr["estimatedTime"]+arr["date"]+str(timenow.year+1),"%H:%M%d/%m%Y")
+            else:
+                actualesttime = datetime.datetime.strptime(arr["estimatedTime"]+arr["date"]+str(timenow.year),"%H:%M%d/%m%Y")
+            self._flights.append(Flight(int(actualschedtime.timestamp()),
+                                 int(actualesttime.timestamp()),
+                                 "d",
+                                 aircraft_full_name,
+                                 airline_full_name,
+                                 arr["airportNamesDisplay"],
+                                 arr["flightNumber"],
+                                 codeshare_flights,
+                                 arr['statusName'] == 'CANCELLED',
+                                 "Melbourne"
+                                 ))
         
     def flights(self):
         return self._flights
