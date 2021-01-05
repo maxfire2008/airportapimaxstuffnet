@@ -8,6 +8,7 @@ from flight import Flight
 
 class MelbourneAirport:
     def __init__(self):
+        startTime=time.time()
         timenow = datetime.datetime.now()
         arrivals = []
         for day in range(3):
@@ -60,7 +61,14 @@ class MelbourneAirport:
                 "EY":"Etihad Airways",
                 "EK":"Emirates",
                 "JQ":"Jetstar Airways",
-                "QF":"Qantas"
+                "QF":"Qantas",
+                "VA":"Virgin Australia",
+                "BI":"Royal Brunei",
+                "TR":"Scoot",
+                "ZL":"Rex",
+                "CX":"Cathay Pacific",
+                "CZ":"China Southern",
+                "GA":"Garuda Indonesia"
             }
         #This required an...... um.... unothordox approach
 ##        aircraft_mapping = json.loads(open("melbourneairportaircraftmapping.json").read())
@@ -140,12 +148,11 @@ class MelbourneAirport:
                                  arr['statusName'] == 'CANCELLED',
                                  "Melbourne"
                                  ))
+        endTime=time.time()
+        print("[YMML] Loaded in",endTime-startTime,"seconds.")
         
     def flights(self):
         return self._flights
 
 if __name__ == "__main__":
-    startTime=time.time()
     YMML = MelbourneAirport()
-    endTime=time.time()
-    print(endTime-startTime)
