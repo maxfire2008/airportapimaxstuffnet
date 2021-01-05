@@ -54,8 +54,55 @@ class MelbourneAirport:
         self._arrivals=arrivals
         self._departures=departures
         self._flights = []
-        airline_mapping = {}
-        aircraft_mapping = {}
+        airline_mapping = {
+                "SQ":"Singapore Airlines",
+                "QR":"Qatar Airways",
+                "EY":"Etihad Airways",
+                "EK":"Emirates",
+                "JQ":"Jetstar Airways",
+                "QF":"Qantas"
+            }
+        aircraft_mapping = {
+                "SQ218":"Airbus A350-941",
+                "QR905":"Airbus A350-1041",
+                "EY461":"Boeing 787-9",
+                "EK409":"Boeing 777-31H(ER)",
+                "JQ570":"Airbus A320-232",
+                "QF1537":"Boeing 717-2BL",
+                "VA732":"Boeing 737-8FE",
+                "JQ793":"Airbus A320-232",
+                "GA716":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":"",
+                "":""
+            }
         self._error_flights = []
         for arr in arrivals:
             if arr["flightNumber"][0:2] in airline_mapping:
