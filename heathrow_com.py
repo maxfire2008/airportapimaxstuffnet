@@ -57,7 +57,15 @@ class HeathrowAirport:
         
         self._debug_1622=arrivals
         self._debug_2319=departures
-        aircraft_mapping = {}
+        aircraft_mapping = {
+                "32N": "Airbus A320",
+                "359": "Airbus A350",
+                "": "",
+                "": "",
+                "": "",
+                "": "",
+                "": ""
+            }
         self._flights = []
         self._error_flights = []
         for arr in arrivals:
@@ -96,12 +104,12 @@ class HeathrowAirport:
                 if 'codeShareSummary' not in arr['flightService']:
                     self._flights.append(
                                     Flight(
-                                        int(datetime.datetime.strptime(arr['flightService']['aircraftMovement']['route']['portsOfCall'][1]['operatingTimes']['scheduled']['local'],"%Y-%m-%dT%H:%M:%S").timestamp()),
-                                        int(datetime.datetime.strptime(arr['flightService']['aircraftMovement']['route']['portsOfCall'][1]['operatingTimes']['scheduled']['local'],"%Y-%m-%dT%H:%M:%S").timestamp()),
+                                        int(datetime.datetime.strptime(arr['flightService']['aircraftMovement']['route']['portsOfCall'][0]['operatingTimes']['scheduled']['local'],"%Y-%m-%dT%H:%M:%S").timestamp()),
+                                        int(datetime.datetime.strptime(arr['flightService']['aircraftMovement']['route']['portsOfCall'][0]['operatingTimes']['scheduled']['local'],"%Y-%m-%dT%H:%M:%S").timestamp()),
                                         "d",
                                         aircraft_full_name,
                                         arr['flightService']['airlineParty']['name'],
-                                        arr['flightService']['aircraftMovement']['route']['portsOfCall'][0]['airportFacility']['name'],
+                                        arr['flightService']['aircraftMovement']['route']['portsOfCall'][1]['airportFacility']['name'],
                                         arr['flightService']['iataFlightIdentifier'],
                                         [],
                                         arr['flightService']['aircraftMovement']['aircraftMovementStatus'][0]['statusCode'] == "CX",
@@ -118,4 +126,4 @@ if __name__ == "__main__":
     EGGL = HeathrowAirport()
     endTime=time.time()
     print("Loaded in",endTime-startTime,"seconds.")
-    arr=EGGL._debug_1622[1]
+##    arr=EGGL._debug_2319[1]
