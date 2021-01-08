@@ -32,7 +32,7 @@ class HobartAirport:
                             "717":"Boeing 717",
                             "321":"Airbus A321",
                             "320":"Airbus A320",
-                            "73H":"Boeing 737-800",
+                            "73H":"Boeing 737",
                             "SF3":"SAAB 340B"}
         self._error_flights = []
         for arr in arrivals:
