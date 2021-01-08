@@ -30,7 +30,7 @@ class HeathrowAirport:
                                 data=arrivalsdata,
                                 )
         arrivals=json.loads(arrivalsresponse.content.decode())
-        
+        print("[EGGL]","Arrivals downloaded")
         departuresheaders = {
     'authority': 'api-dp-prod.dp.heathrow.com',
     'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
@@ -54,17 +54,36 @@ class HeathrowAirport:
                                 data=departuresdata,
                                 )
         departures=json.loads(departuresresponse.content.decode())
-        
+        print("[EGGL]","Departures downloaded")
         self._debug_1622=arrivals
         self._debug_2319=departures
         aircraft_mapping = {
-                "32N": "Airbus A320",
+                "32N": "Airbus A320neo",
                 "359": "Airbus A350",
-                "": "",
-                "": "",
-                "": "",
-                "": "",
-                "": ""
+                "781": "Boeing 787",
+                "772": "Boeing 777",
+                "ER4": "Embraer ERJ-145",
+                "789": "Boeing 787",
+                "788": "Boeing 787",
+                "77W": "Boeing 777",
+                "788": "Boeing 787",
+                "319": "Airbus A319",
+                "333": "Airbus A330",
+                "E90": "Embraer 190",
+                "351": "Airbus A350",
+                "32Q": "Boeing 737",
+                "320": "Airbus A320",
+                "388": "Airbus A380",
+                "318": "Airbus A318",
+                "73W": "Airbus 737",
+                "73H": "Airbus 737",
+                "738": "Airbus 737",
+                "321": "Airbus A321",
+                "764": "Boeing 767",
+                "E95": "Embraer ERJ-195",
+                "221": "Airbus A220",
+                "223": "Airbus A220",
+                "752": "Boeing 757"
             }
         self._flights = []
         self._error_flights = []
@@ -93,6 +112,7 @@ class HeathrowAirport:
                                         )
             except:
                 None
+        print("[EGGL]","Arrivals parsed")
         for arr in departures:
             try:
                 if arr['flightService']['aircraftTransport']['iataTypeCode'] in aircraft_mapping:
@@ -118,6 +138,7 @@ class HeathrowAirport:
                                         )
             except:
                 None
+        print("[EGGL]","Departures parsed")
     def flights(self):
         return self._flights
 
