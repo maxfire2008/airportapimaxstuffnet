@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
 ##import bs4
 import requests
-##import time
+import time
 import json
-##from pprint import pprint
+from pprint import pprint
 from flight import Flight
 class HobartAirport:
     def __init__(self):
@@ -97,5 +97,8 @@ class HobartAirport:
         return self._flights
 
 if __name__ == "__main__":
-    hba = HobartAirport()
+    startTime=time.time()
+    YMHB = HobartAirport()
+    endTime=time.time()
+    print("Loaded in",endTime-startTime,"seconds.")
 ##    print(hba.flights)

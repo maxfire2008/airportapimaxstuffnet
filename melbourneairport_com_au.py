@@ -8,7 +8,7 @@ from flight import Flight
 
 class MelbourneAirport:
     def __init__(self):
-        startTime=time.time()
+        
         timenow = datetime.datetime.now()
         arrivals = []
         for day in range(3):
@@ -148,11 +148,12 @@ class MelbourneAirport:
                                  arr['statusName'] == 'CANCELLED',
                                  "Melbourne"
                                  ))
-        endTime=time.time()
-        print("[YMML] Loaded in",endTime-startTime,"seconds.")
         
     def flights(self):
         return self._flights
 
 if __name__ == "__main__":
+    startTime=time.time()
     YMML = MelbourneAirport()
+    endTime=time.time()
+    print("Loaded in",endTime-startTime,"seconds.")
