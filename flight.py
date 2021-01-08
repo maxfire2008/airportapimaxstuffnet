@@ -95,7 +95,7 @@ class Flight:
 "cancelled":self._cancelled,
 "current_location":self._current_location}
     def __repr__(self):
-        return "Flight("+repr(self._time)+","+repr(self._est_time)+","+repr(self._arrival_departure)+","+repr(self._aircraft)+","+repr(self._airline)+","+repr(self._location)+repr(self._flight_number)+","+repr(self._cancelled)+")"
+        return "Flight("+repr(self._time)+","+repr(self._est_time)+","+repr(self._arrival_departure)+","+repr(self._aircraft)+","+repr(self._airline)+","+repr(self._location)+","+repr(self._flight_number)+","+repr(self._cancelled)+","+repr(self._current_location)+")"
 
 if __name__ == "__main__":
     testflight = Flight(1609380707,1609384307,"a","738","Qantas","Perth","QF2842",["JQ28","BA2842"],False)
