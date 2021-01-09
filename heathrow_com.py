@@ -5,6 +5,10 @@ import json
 import datetime
 from pprint import pprint
 from flight import Flight
+
+from honeybadger import honeybadger
+honeybadger.configure(api_key='bb40a454')
+
 class HeathrowAirport:
     def __init__(self):
         self._flights = []
@@ -86,7 +90,9 @@ class HeathrowAirport:
                     "E95": "Embraer ERJ-195",
                     "221": "Airbus A220",
                     "223": "Airbus A220",
-                    "752": "Boeing 757"
+                    "752": "Boeing 757",
+                    "32A": "Airbus A320",
+                    "332": "Airbus A330"
                 }
             for arr in arrivals:
                 try:
@@ -95,6 +101,7 @@ class HeathrowAirport:
                     else:
                         aircraft_full_name = arr['flightService']['aircraftTransport']['iataTypeCode']
                         print("[EGGL] Aircraft not recognised:",arr['flightService']['aircraftTransport']['iataTypeCode'],arr['flightService']['iataFlightIdentifier'])
+                        honeybadger.notify(exception=f"[EGGL] Aircraft not recognised: {arr['flightService']['aircraftTransport']['iataTypeCode']} {arr['flightService']['iataFlightIdentifier']}")
                         self._error_flights.append(arr)
                     if 'codeShareSummary' not in arr['flightService']:
                         self._flights.append(
@@ -121,6 +128,7 @@ class HeathrowAirport:
                     else:
                         aircraft_full_name = arr['flightService']['aircraftTransport']['iataTypeCode']
                         print("[EGGL] Aircraft not recognised:",arr['flightService']['aircraftTransport']['iataTypeCode'],arr['flightService']['iataFlightIdentifier'])
+                        honeybadger.notify(exception=f"[EGGL] Aircraft not recognised: {arr['flightService']['aircraftTransport']['iataTypeCode']} {arr['flightService']['iataFlightIdentifier']}")
                         self._error_flights.append(arr)
                     if 'codeShareSummary' not in arr['flightService']:
                         self._flights.append(

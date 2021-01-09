@@ -5,3 +5,4 @@ flask-cors
 fernet
 bs4
 requests
+honeybadger

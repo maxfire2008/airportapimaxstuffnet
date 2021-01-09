@@ -5,6 +5,10 @@ import time
 import json
 from pprint import pprint
 from flight import Flight
+
+from honeybadger import honeybadger
+honeybadger.configure(api_key='bb40a454')
+
 class HobartAirport:
     def __init__(self):
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -41,12 +45,14 @@ class HobartAirport:
             else:
                 airline_full_name = arr["airline"]
                 print("[YMHB] Airline not recognised:",arr["airline"],arr["flight_number"])
+                honeybadger.notify(exception=f'[YMHB] Airline not recognised: {arr["airline"]} {arr["flight_number"]}')
                 self._error_flights.append(arr)
             if arr["aircraft_type"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
             else:
                 aircraft_full_name = arr["aircraft_type"]
                 print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                honeybadger.notify(exception=f'[YMHB] Aircraft not recognised: {arr["aircraft_type"]} {arr["flight_number"]}')
                 self._error_flights.append(arr)
             if "codeshare_flights" in arr:
                 codeshare_flights = arr["codeshare_flights"]
@@ -70,12 +76,14 @@ class HobartAirport:
             else:
                 airline_full_name = arr["airline"]
                 print("[YMHB] Airline not recognised:",arr["airline"],arr["flight_number"])
+                honeybadger.notify(exception=f'[YMHB] Airline not recognised: {arr["airline"]} {arr["flight_number"]}')
                 self._error_flights.append(arr)
             if arr["aircraft_type"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
             else:
                 aircraft_full_name = arr["aircraft_type"]
                 print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                honeybadger.notify(exception=f'[YMHB] Aircraft not recognised: {arr["aircraft_type"]} {arr["flight_number"]}')
                 self._error_flights.append(arr)
             if "codeshare_flights" in arr:
                 codeshare_flights = arr["codeshare_flights"]

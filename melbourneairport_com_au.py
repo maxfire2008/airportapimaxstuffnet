@@ -6,9 +6,11 @@ import time
 from pprint import pprint
 from flight import Flight
 
+from honeybadger import honeybadger
+honeybadger.configure(api_key='bb40a454')
+
 class MelbourneAirport:
     def __init__(self):
-        
         timenow = datetime.datetime.now()
         arrivals = []
         for day in range(3):
@@ -80,6 +82,7 @@ class MelbourneAirport:
             else:
                 airline_full_name = arr["flightNumber"][0:2]
                 print("[YMML] Airline not recognised:",arr["flightNumber"][0:2],arr["flightNumber"])
+                honeybadger.notify(exception=f"[YMML] Airline not recognised: {arr['flightNumber'][0:2]} {arr['flightNumber']}")
                 self._error_flights.append(arr)
             if arr["flightNumber"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["flightNumber"]]
@@ -117,6 +120,7 @@ class MelbourneAirport:
             else:
                 airline_full_name = arr["flightNumber"][0:2]
                 print("[YMML] Airline not recognised:",arr["flightNumber"][0:2],arr["flightNumber"])
+                honeybadger.notify(exception=f"[YMML] Airline not recognised: {arr['flightNumber'][0:2]} {arr['flightNumber']}")
                 self._error_flights.append(arr)
             if arr["flightNumber"] in aircraft_mapping:
                 aircraft_full_name = aircraft_mapping[arr["flightNumber"]]
