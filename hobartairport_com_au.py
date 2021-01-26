@@ -31,7 +31,8 @@ class HobartAirport:
                            "FC":"Link Airways",
                            "NZ":"Air New Zealand",
                            "CX":"Cathay Pacific",
-                           "DL":"Delta Air Lines"}
+                           "DL":"Delta Air Lines",
+                           "LA":"LATAM Airlines"}
         aircraft_mapping = {"SWM":"Fairchild Swearingen Metroliner",
                             "717":"Boeing 717",
                             "321":"Airbus A321",
