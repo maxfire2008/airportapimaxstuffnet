@@ -47,18 +47,25 @@ class HobartAirport:
                 print("[YMHB] Airline not recognised:",arr["airline"],arr["flight_number"])
                 honeybadger.notify(exception=f'[YMHB] Airline not recognised: {arr["airline"]} {arr["flight_number"]}')
                 self._error_flights.append(arr)
-            if arr["aircraft_type"] in aircraft_mapping:
-                aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+            pprint(arr)
+            if "aircraft_type" in arr:
+                if arr["aircraft_type"] in aircraft_mapping:
+                    aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+                else:
+                    aircraft_full_name = arr["aircraft_type"]
+                    print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                    honeybadger.notify(exception=f'[YMHB] Aircraft not recognised: {arr["aircraft_type"]} {arr["flight_number"]}')
+                    self._error_flights.append(arr)
             else:
-                aircraft_full_name = arr["aircraft_type"]
-                print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
-                honeybadger.notify(exception=f'[YMHB] Aircraft not recognised: {arr["aircraft_type"]} {arr["flight_number"]}')
+                aircraft_full_name = airline_full_name
+                print("[YMHB] Attribute \"aircraft_type\" non-existent:",arr["flight_number"])
+                honeybadger.notify(exception=f'[YMHB] Attribute \"aircraft_type\" non-existent: {arr["flight_number"]}')
                 self._error_flights.append(arr)
             if "codeshare_flights" in arr:
                 codeshare_flights = arr["codeshare_flights"]
             else:
                 codeshare_flights = []
-            if arr["aircraft_type"] != "143":
+            if "aircraft_type" not in arr or arr["aircraft_type"] != "143":
                 self._flights.append(Flight(arr["scheduled_time_timestamp"],
                                      arr["estimated_time_timestamp"],
                                      "a",
@@ -78,18 +85,24 @@ class HobartAirport:
                 print("[YMHB] Airline not recognised:",arr["airline"],arr["flight_number"])
                 honeybadger.notify(exception=f'[YMHB] Airline not recognised: {arr["airline"]} {arr["flight_number"]}')
                 self._error_flights.append(arr)
-            if arr["aircraft_type"] in aircraft_mapping:
-                aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+            if "aircraft_type" in arr:
+                if arr["aircraft_type"] in aircraft_mapping:
+                    aircraft_full_name = aircraft_mapping[arr["aircraft_type"]]
+                else:
+                    aircraft_full_name = arr["aircraft_type"]
+                    print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
+                    honeybadger.notify(exception=f'[YMHB] Aircraft not recognised: {arr["aircraft_type"]} {arr["flight_number"]}')
+                    self._error_flights.append(arr)
             else:
-                aircraft_full_name = arr["aircraft_type"]
-                print("[YMHB] Aircraft not recognised:",arr["aircraft_type"],arr["flight_number"])
-                honeybadger.notify(exception=f'[YMHB] Aircraft not recognised: {arr["aircraft_type"]} {arr["flight_number"]}')
+                aircraft_full_name = airline_full_name
+                print("[YMHB] Attribute \"aircraft_type\" non-existent:",arr["flight_number"])
+                honeybadger.notify(exception=f'[YMHB] Attribute \"aircraft_type\" non-existent: {arr["flight_number"]}')
                 self._error_flights.append(arr)
             if "codeshare_flights" in arr:
                 codeshare_flights = arr["codeshare_flights"]
             else:
                 codeshare_flights = []
-            if arr["aircraft_type"] != "143":
+            if "aircraft_type" not in arr or arr["aircraft_type"] != "143":
                 self._flights.append(Flight(arr["scheduled_time_timestamp"],
                                      arr["estimated_time_timestamp"],
                                      "d",

@@ -70,7 +70,9 @@ class MelbourneAirport:
                 "ZL":"Rex",
                 "CX":"Cathay Pacific",
                 "CZ":"China Southern",
-                "GA":"Garuda Indonesia"
+                "GA":"Garuda Indonesia",
+                "TL": "Airnorth",
+                "NZ": "Air New Zealand"
             }
         #This required an...... um.... unothordox approach
 ##        aircraft_mapping = json.loads(open("melbourneairportaircraftmapping.json").read())

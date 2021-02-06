@@ -92,7 +92,8 @@ class HeathrowAirport:
                     "223": "Airbus A220",
                     "752": "Boeing 757",
                     "32A": "Airbus A320",
-                    "332": "Airbus A330"
+                    "332": "Airbus A330",
+                    "32B": "Airbus A321",
                 }
             for arr in arrivals:
                 try:
